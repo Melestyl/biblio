@@ -55,8 +55,12 @@ int main()
 			if (afficherBibliotheque(&B))
 				printf("La bibliotheque est vide");
 			break;
+		
+		case 4:
+			if(afficherLivresAuteur(&B))
+				printf("Aucun livre n'a été trouvé pour cet auteur.\n");
+			break;
 		}
-
 	} while (chx != 0);
 
 	return 0;

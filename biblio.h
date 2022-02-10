@@ -18,5 +18,6 @@ typedef struct
 void init(T_Bibliotheque *ptrB);
 int ajouterLivre(T_Bibliotheque *ptrB);
 int afficherBibliotheque(const T_Bibliotheque *ptrB);
+int afficherLivresAuteur(const T_Bibliotheque *ptrB);
 
 #endif

@@ -29,3 +29,20 @@ int afficherBibliotheque(const T_Bibliotheque *ptrB)
     }
     return 0;
 }
+
+int afficherLivresAuteur(const T_Bibliotheque *ptrB) {
+    char name[50];
+    int compteur = 0;
+    
+    printf("Entrez le nom de l'auteur recherché : ");
+    fgets(name, 50, stdin);
+    name[strlen(name) - 1] = '\0'; //Supprime le retour à la ligne
+    for (int i=0; i<ptrB->nbLivres; i++) {
+        if (!strcmp(ptrB->etagere[i].auteur, name)) {
+            compteur++;
+            afficherLivre(&ptrB->etagere[i]);
+        }
+    }
+    if (!compteur) return 1;
+    return 0;
+}
