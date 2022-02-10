@@ -39,6 +39,7 @@ int main()
 	int chx;
 	T_Bibliotheque B;
 	init(&B);
+	char entree[100];
 
 	do
 	{
@@ -55,8 +56,14 @@ int main()
 			if (afficherBibliotheque(&B))
 				printf("La bibliotheque est vide");
 			break;
+		case 3:
+			printf("Entrez le titre d'un livre à rechercher : ");
+			fgets(entree, 100, stdin);
+			entree[strlen(entree) -1] = '\0';
+			if (rechercherLivreTitre(&B, entree))
+				printf("Il n'y a pas d'occurrence de ce titre dans la bibliothèque.");
+			break;
 		}
-
 	} while (chx != 0);
 
 	return 0;

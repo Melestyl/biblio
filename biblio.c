@@ -29,3 +29,17 @@ int afficherBibliotheque(const T_Bibliotheque *ptrB)
     }
     return 0;
 }
+
+int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[]){
+    int compteur = 0;
+    for(int i=0; i < ptrB->nbLivres; i++) {
+        if(!strcmp(ptrB->etagere[i].titre,titre)){
+            afficherLivre(&ptrB->etagere[i]);
+            compteur++;
+        }
+    }
+    if (compteur == 0)
+        return 1;
+    printf("\nIl existe %d livre(s) de ce titre dans la bibliothèque.", compteur);
+    return 0;
+}
