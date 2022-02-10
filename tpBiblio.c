@@ -62,6 +62,10 @@ int main()
 			entree[strlen(entree) -1] = '\0';
 			if (rechercherLivreTitre(&B, entree))
 				printf("Il n'y a pas d'occurrence de ce titre dans la bibliothèque.");
+		
+		case 4:
+			if(afficherLivresAuteur(&B))
+				printf("Aucun livre n'a été trouvé pour cet auteur.\n");
 			break;
 		}
 	} while (chx != 0);
