@@ -19,7 +19,7 @@ int ajouterLivre(T_Bibliotheque *ptrB)
 
 int afficherBibliotheque(const T_Bibliotheque *ptrB)
 {
-    printf("\nAffichage de la bibliothèque :\n\n");
+    printf("\nAffichage de la bibliothèque :\n");
     if (ptrB->nbLivres == 0)
         return 1;
     for(int i=0; i < ptrB->nbLivres; i++) {
