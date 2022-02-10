@@ -1,5 +1,5 @@
 c=gcc
-op=-Wall -Wextra
+op=-Wall #-Wextra
 
 all : es.o livre.o biblio.o tpBiblio.c 	
 	$(c) $(op)  es.o livre.o biblio.o tpBiblio.c -o exe
