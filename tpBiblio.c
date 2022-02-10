@@ -46,11 +46,10 @@ int main()
 		switch (chx)
 		{
 		case 1:
-			reponse = ajouterLivre(&B);
-			if (reponse == 1)
-				printf(" ajout reussi !!");
+			if (ajouterLivre(&B))
+				printf("Echec de l'ajout, la bibliothèque est pleine.\n");
 			else
-				printf("impossible d ajouter (bibliotheque pleine)");
+				printf("Ajout réussi.\n");
 			break;
 		case 2:
 			reponse = afficherBibliotheque(&B);
