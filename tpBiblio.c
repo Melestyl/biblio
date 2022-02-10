@@ -36,7 +36,7 @@ int menu()
 
 int main()
 {
-	int reponse, chx;
+	int chx;
 	T_Bibliotheque B;
 	init(&B);
 
@@ -52,10 +52,8 @@ int main()
 				printf("Ajout réussi.\n");
 			break;
 		case 2:
-			reponse = afficherBibliotheque(&B);
-			if (reponse == 0)
+			if (afficherBibliotheque(&B))
 				printf("La bibliotheque est vide");
-
 			break;
 		}
 
