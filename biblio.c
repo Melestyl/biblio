@@ -8,7 +8,12 @@ void init(T_Bibliotheque *ptrB)
 
 int ajouterLivre(T_Bibliotheque *ptrB)
 {
-
+    if (ptrB->nbLivres == CAPACITE_BIBLIO)
+        return 1;
+    T_livre livre;
+    saisirLivre(&livre);
+    ptrB->etagere[ptrB->nbLivres] = livre;
+    ptrB->nbLivres++;
     return 0;
 }
 
