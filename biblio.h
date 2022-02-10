@@ -3,7 +3,7 @@
 
 #include "livre.h"
 
-#define CAPACITE_BIBLIO 2 // nb maximum de livres ds la bibliotheque
+#define CAPACITE_BIBLIO 20 // nb maximum de livres ds la bibliotheque
 
 typedef T_livre T_tabloDeLivres[CAPACITE_BIBLIO];
 

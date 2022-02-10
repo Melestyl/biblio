@@ -8,12 +8,16 @@ void init(T_Bibliotheque *ptrB)
 
 int ajouterLivre(T_Bibliotheque *ptrB)
 {
+    unsigned int id = getID;
+
     if (ptrB->nbLivres == CAPACITE_BIBLIO)
         return 1;
     T_livre livre;
     saisirLivre(&livre);
+    livre.code = id;
     ptrB->etagere[ptrB->nbLivres] = livre;
     ptrB->nbLivres++;
+    setID(id+1);
     return 0;
 }
 
@@ -23,9 +27,10 @@ int afficherBibliotheque(const T_Bibliotheque *ptrB)
     if (ptrB->nbLivres == 0)
         return 1;
     for(int i=0; i < ptrB->nbLivres; i++) {
-        printf("-----------------\n");
+        afficherLivre(&ptrB->etagere[i]);
+        /* printf("-----------------\n");
         printf("Titre : %s\n", ptrB->etagere[i].titre);
-        printf("Auteur : %s\n", ptrB->etagere[i].auteur);
+        printf("Auteur : %s\n", ptrB->etagere[i].auteur); */
     }
     return 0;
 }
@@ -58,4 +63,8 @@ int afficherLivresAuteur(const T_Bibliotheque *ptrB) {
     }
     if (!compteur) return 1;
     return 0;
+}
+
+int supprimerLivre(T_Bibliotheque *ptrB) {
+
 }
