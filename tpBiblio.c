@@ -38,7 +38,7 @@ int menu()
 	// vous pourrez alors faire les menus 11,12,etc...
 	// printf("\n 11- lister les livres disponibles ");
 	// printf("\n 12 - lister les emprunts en retard "); //on suppose qu'un emprunt dure 7 jours.
-	// printf("\n 13 - ... imaginez vous même vos propres fonctionnalités ")
+	// printf("\n 13 - ... imaginez vous même vos propres fonctionnalités ") //Search by code TODO: Chercher par code
 
 	printf("\n 0 - QUITTER");
 	printf("\n Votre choix : ");
@@ -67,10 +67,12 @@ int main()
 			else
 				printf("Ajout réussi.\n");
 			break;
+		
 		case 2:
 			if (afficherBibliotheque(&B))
 				printf("La bibliotheque est vide");
 			break;
+		
 		case 3:
 			printf("Entrez le titre d'un livre à rechercher : ");
 			fgets(entree, 100, stdin);
@@ -81,6 +83,13 @@ int main()
 		case 4:
 			if(afficherLivresAuteur(&B))
 				printf("Aucun livre n'a été trouvé pour cet auteur.\n");
+			break;
+		
+		case 5:
+			if(supprimerLivre(&B))
+				printf("Le livre n'a pas pu être supprimé.\n");
+			else
+				printf("Le livre a été supprimé avec succès.\n");
 			break;
 		}
 	} while (chx != 0);

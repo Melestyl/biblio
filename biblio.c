@@ -17,6 +17,7 @@ int ajouterLivre(T_Bibliotheque *ptrB)
     livre.code = id;
     ptrB->etagere[ptrB->nbLivres] = livre;
     ptrB->nbLivres++;
+	printf("\nLe livre possède le code %u.\n", id);
     setID(id+1);
     return 0;
 }
@@ -52,7 +53,7 @@ int afficherLivresAuteur(const T_Bibliotheque *ptrB) {
     char name[50];
     int compteur = 0;
     
-    printf("Entrez le nom de l'auteur recherché : ");
+    printf("\nEntrez le nom de l'auteur recherché : ");
     fgets(name, 50, stdin);
     name[strlen(name) - 1] = '\0'; //Supprime le retour à la ligne
     for (int i=0; i<ptrB->nbLivres; i++) {
@@ -66,7 +67,45 @@ int afficherLivresAuteur(const T_Bibliotheque *ptrB) {
 }
 
 int supprimerLivre(T_Bibliotheque *ptrB) {
+	unsigned int code, position;
+	char choice;
 
+	printf("\nEntrez le code du livre à supprimer : ");
+	scanf("%u", &code);
+	position = rechercherLivreCode(ptrB, code);
+	if(position==0)
+		return 1; //Non trouvé, position impossible
+	else {
+		printf("Voulez-vous supprimer le livre suivant ?\n");
+		afficherLivre(&ptrB->etagere[position]);
+		printf("O/n : ");
+		getchar();
+		scanf("%c", &choice);
+		switch (choice) {
+			case 'o':
+			case 'O':
+			case 'y':
+			case 'Y':
+				ptrB->nbLivres--;
+				for (unsigned i=position; i<ptrB->nbLivres; i++) {
+					ptrB->etagere[i] = ptrB->etagere[i+1];
+				}
+				break;
+			
+			default:
+				return 1;
+				break;
+		}
+	}
+	return 0;
+}
+
+int rechercherLivreCode(T_Bibliotheque *ptrB, unsigned id) {
+	for (unsigned i=0; i<ptrB->nbLivres; i++) {
+		if (ptrB->etagere[i].code==id)
+			return i;
+	}
+	return 0; //N'existe pas
 }
 
 //FICHIERS

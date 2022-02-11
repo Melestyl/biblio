@@ -20,6 +20,8 @@ int ajouterLivre(T_Bibliotheque *ptrB);
 int afficherBibliotheque(const T_Bibliotheque *ptrB);
 int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[]);
 int afficherLivresAuteur(const T_Bibliotheque *ptrB);
+int supprimerLivre(T_Bibliotheque *ptrB);
+int rechercherLivreCode(T_Bibliotheque *ptrB, unsigned id);
 
 //FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB);
