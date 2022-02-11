@@ -21,4 +21,11 @@ int afficherBibliotheque(const T_Bibliotheque *ptrB);
 int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[]);
 int afficherLivresAuteur(const T_Bibliotheque *ptrB);
 
+//FICHIERS
+void sauvegarde(T_Bibliotheque *ptrB);
+int chargement(T_Bibliotheque *ptrB);
+void lectureFichierTXT();
+unsigned int getID();
+void setID(unsigned int id);
+
 #endif

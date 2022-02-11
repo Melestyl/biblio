@@ -13,3 +13,6 @@ biblio.o : biblio.c biblio.h
 
 clean:
 	$(RM) *.o exe 
+
+reset: clean
+	$(RM) id.dat baseLivres 

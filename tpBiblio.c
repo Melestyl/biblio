@@ -1,5 +1,6 @@
 // TP GESTION D'UNE BIBLIOTHEQUE
 #include "biblio.h"
+#include <signal.h>
 
 int menu()
 {
@@ -69,6 +70,7 @@ int main()
 			break;
 		}
 	} while (chx != 0);
-
+	//TODO: SIGINT HANDLING
+	sauvegarde(&B);
 	return 0;
 }

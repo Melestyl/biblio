@@ -12,6 +12,6 @@ void afficherLivre(const T_livre *ptrL)
 	printf(" - ");
 	afficherChaine("AUTEUR :", (ptrL->auteur));
 	printf(" - ");
-	printf("CODE : %ud\n", (ptrL->code));
+	printf("CODE : %u\n", (ptrL->code));
 	printf("\n");
 }
