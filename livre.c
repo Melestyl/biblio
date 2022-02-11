@@ -12,6 +12,10 @@ void afficherLivre(const T_livre *ptrL)
 	printf(" - ");
 	afficherChaine("AUTEUR :", (ptrL->auteur));
 	printf(" - ");
-	printf("CODE : %u\n", (ptrL->code));
+	printf("CODE : %u", (ptrL->code));
+	if (ptrL->emprunt) {
+		printf(" - ");
+		afficherChaine("EMPRUNTEUR :", ptrL->emprunteur);
+	}
 	printf("\n");
 }
