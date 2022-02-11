@@ -55,3 +55,7 @@ dkms.conf
 # VSCODE
 .vscode/*
 .vscode/settings.json
+
+# Data
+baseLivres
+id.dat

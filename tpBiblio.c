@@ -1,6 +1,18 @@
 // TP GESTION D'UNE BIBLIOTHEQUE
 #include "biblio.h"
 #include <signal.h>
+#include <unistd.h>
+
+T_Bibliotheque B; //VARIABLE GLOBALE DE CE FICHIER
+
+void terminate() {
+	sauvegarde(&B);
+}
+
+void sig_handler(int signum){
+	printf("\nCtrl+C detecté.\n");
+	exit(0);
+}
 
 int menu()
 {
@@ -37,8 +49,10 @@ int menu()
 
 int main()
 {
+	atexit(terminate);
+	signal(SIGINT, sig_handler);
+
 	int chx;
-	T_Bibliotheque B;
 	init(&B);
 	char entree[100];
 
@@ -71,6 +85,5 @@ int main()
 		}
 	} while (chx != 0);
 	//TODO: SIGINT HANDLING
-	sauvegarde(&B);
 	return 0;
 }
