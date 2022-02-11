@@ -1,4 +1,5 @@
 #include "biblio.h"
+#include <ctype.h>
 
 void init(T_Bibliotheque *ptrB)
 {
@@ -135,6 +136,48 @@ int rendreLivre(T_Bibliotheque *ptrB) {
 	else
 		return 1;
 	return 0;
+}
+
+char* lowerString(char chaine[], char copieChaine[]) { // Sert pour trier sans considérer les majuscules
+    int i = 0;
+    strcpy(copieChaine, chaine);
+    for(; copieChaine[i] != '\0' && copieChaine[i]!='\n'; i++)
+        copieChaine[i] = tolower(copieChaine[i]);
+    copieChaine[i] = '\0';
+    return copieChaine;
+}
+
+//FIXME: Tri plus optimisé ?
+void trierTitre(T_Bibliotheque *ptrB) {
+	T_livre aux;
+	int j;
+	char s1[80], s2[80];
+
+	for (unsigned i=0; i<ptrB->nbLivres; i++) {
+		j = i;
+		while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].titre, s1), lowerString(ptrB->etagere[j].titre, s2)) > 0)) { // Tant que c'est supérieur
+			aux = ptrB->etagere[j];
+			ptrB->etagere[j] = ptrB->etagere[j-1];
+			ptrB->etagere[j-1] = aux;
+			j--;
+		}
+	}
+}
+
+void trierAuteur(T_Bibliotheque *ptrB) {
+	T_livre aux;
+	int j;
+	char s1[80], s2[80];
+
+	for (unsigned i=0; i<ptrB->nbLivres; i++) {
+		j = i;
+		while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].auteur, s1), lowerString(ptrB->etagere[j].auteur, s2)) > 0)) { // Tant que c'est supérieur
+			aux = ptrB->etagere[j];
+			ptrB->etagere[j] = ptrB->etagere[j-1];
+			ptrB->etagere[j-1] = aux;
+			j--;
+		}
+	}
 }
 
 //FICHIERS

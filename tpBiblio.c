@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-T_Bibliotheque B; //VARIABLE GLOBALE DE CE FICHIER
+T_Bibliotheque B; // VARIABLE GLOBALE DE CE FICHIER
 
 void terminate() {
 	sauvegarde(&B);
@@ -105,6 +105,21 @@ int main()
 			else
 				printf("Le livre a été rendu avec succès.\n");
 			break;
+
+		case 8:
+			trierTitre(&B);
+			printf("\nTri effectué.\n");
+			break;
+
+		case 9:
+			trierAuteur(&B);
+			printf("\nTri effectué.\n");
+			break;
+
+		//TODO: Afficher différemment les livres, pour qu'on voit mieux les données.
+
+		default:
+			printf("\nChoix non reconnu ou option non codée pour le moment.\n");
 		}
 	} while (chx != 0);
 

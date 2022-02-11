@@ -24,6 +24,8 @@ int supprimerLivre(T_Bibliotheque *ptrB);
 int rechercherLivreCode(T_Bibliotheque *ptrB, unsigned id);
 int emprunterLivre(T_Bibliotheque *ptrB);
 int rendreLivre(T_Bibliotheque *ptrB);
+void trierTitre(T_Bibliotheque *ptrB);
+void trierAuteur(T_Bibliotheque *ptrB);
 
 //FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB);
