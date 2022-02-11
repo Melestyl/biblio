@@ -20,8 +20,8 @@ typedef int T_annee;
 
 // à utiliser pour gérer l'emprunt d'un livre
 /*
-typedef enum T_Jour {lu,ma,me,je,ve,sa,di};
-typedef enum T_Mois {janv,fevr,mars,avri,mai,juin,juil,aout,sept,octo,nove,dece};
+typedef enum {lu,ma,me,je,ve,sa,di} T_Jour;
+typedef enum {janv,fevr,mars,avri,mai,juin,juil,aout,sept,octo,nove,dece} T_Mois;
 
 typedef struct
 {
@@ -39,12 +39,12 @@ int lannee
 typedef struct
 {
 	T_Code code; // code de reference du livre dans la biblio.
-	//  Attention il peut y avoir pluieurs livres de même titre (le code diffèrent dans ce cas)
+	//  Attention il peut y avoir pluieurs livres de même titre (le code diffère dans ce cas)
 	T_Titre titre; // Titre du livre
 	T_Aut auteur;  // Nom de l'auteur
-	// T_Edit editeur; // Nom de l'editeur
-	// T_annee annee; // Annee de l'edition
-	int emprunt;
+	T_Edit editeur; // Nom de l'editeur
+	T_annee annee; // Annee de l'edition
+	int emprunt; // Booléen pour savoir si le livre a été emprunté ou non
 	T_Emp emprunteur; // Nom de l'emprunteur et date d'emprunt
 } T_livre;
 
