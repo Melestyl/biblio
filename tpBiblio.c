@@ -97,8 +97,16 @@ int main()
 				printf("Livre non trouvé, ajout d'emprunteur impossible.\n");
 			else
 				printf("L'emprunteur a été ajouté avec succès.\n");
+			break;
+		
+		case 7:
+			if(rendreLivre(&B))
+				printf("La restitution du livre n'a pas pu s'effectuer.\n");
+			else
+				printf("Le livre a été rendu avec succès.\n");
+			break;
 		}
 	} while (chx != 0);
-	//TODO: SIGINT HANDLING
+
 	return 0;
 }

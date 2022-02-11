@@ -110,7 +110,7 @@ int emprunterLivre(T_Bibliotheque *ptrB) {
 	T_Emp emp;
 	unsigned id, position;
 
-	printf("Quel est le code du livre ? ");
+	printf("\nQuel est le code du livre ? ");
 	scanf("%u", &id);
 	position = rechercherLivreCode(ptrB, id);
 	if (position==0)
@@ -121,6 +121,19 @@ int emprunterLivre(T_Bibliotheque *ptrB) {
 		strcpy(ptrB->etagere[position].emprunteur, emp);
 		ptrB->etagere[position].emprunt = 1;
 	}
+	return 0;
+}
+
+int rendreLivre(T_Bibliotheque *ptrB) {
+	unsigned id, position;
+
+	printf("\nQuel est le code du livre ? ");
+	scanf("%u", &id);
+	position = rechercherLivreCode(ptrB, id);
+	if (ptrB->etagere[position].emprunt)
+		ptrB->etagere[position].emprunt = 0;
+	else
+		return 1;
 	return 0;
 }
 
