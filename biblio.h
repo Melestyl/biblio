@@ -28,6 +28,8 @@ void trierTitre(T_Bibliotheque *ptrB);
 void trierAuteur(T_Bibliotheque *ptrB);
 void trierAnnee(T_Bibliotheque *ptrB);
 
+int afficherLivresDisponibles(const T_Bibliotheque *ptrB);
+
 //FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB);
 int chargement(T_Bibliotheque *ptrB);

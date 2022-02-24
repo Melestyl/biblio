@@ -36,9 +36,10 @@ int menu()
 	
 	// si les 5 choix (6-10) sont bien codés, changez le type T_Emp et remplacez-le par la structure T_Emp visible dans livre.h
 	// vous pourrez alors faire les menus 11,12,etc...
-	// printf("\n 11- lister les livres disponibles ");
+	printf("\n 11- lister les livres disponibles ");
 	// printf("\n 12 - lister les emprunts en retard "); //on suppose qu'un emprunt dure 7 jours.
 	// printf("\n 13 - ... imaginez vous même vos propres fonctionnalités ") //Search by code TODO: Chercher par code
+	printf("\n 13 - Rechercher un livre (par code)");
 
 	printf("\n 0 - QUITTER");
 	printf("\n Votre choix : ");
@@ -55,6 +56,7 @@ int main()
 	int chx;
 	init(&B);
 	char entree[100];
+	unsigned choix;
 
 	do
 	{
@@ -121,6 +123,21 @@ int main()
 		case 10:
 			trierAnnee(&B);
 			printf("\nTri effectué.\n");
+			break;
+
+		case 11:
+			if (afficherLivresDisponibles(&B))
+				printf("\nIl n'y a pas de livre disponible actuellement.\n");
+			break;
+
+		case 13:
+			printf("\nEntrez un code à rechercher: ");
+			scanf("%u", &choix);
+			chx = rechercherLivreCode(&B, choix);
+			if (chx)
+				afficherLivre(&B.etagere[chx]);
+			else
+				printf("\nIl n'y a pas de livre correspondant à ce code.\n");
 			break;
 
 		default:

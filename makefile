@@ -11,6 +11,10 @@ livre.o : livre.c livre.h
 biblio.o : biblio.c biblio.h
 	$(c) $(op) -c biblio.c	
 
+
+install:  #Linux
+	sudo apt-get install libncurses5-dev libncursesw5-dev -y
+
 clean:
 	$(RM) *.o exe 
 
