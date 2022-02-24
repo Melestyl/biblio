@@ -16,7 +16,7 @@ int ajouterLivre(T_Bibliotheque *ptrB)
     T_livre livre;
     saisirLivre(&livre);
     livre.code = id;
-	livre.emprunt = 0;
+	livre.emprunteur.emprunt = 0;
     ptrB->etagere[ptrB->nbLivres] = livre;
     ptrB->nbLivres++;
 	printf("\nLe livre possède le code %u.\n", id);
@@ -46,6 +46,7 @@ int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[]){
     if (compteur == 0)
         return 1;
     printf("\nIl existe %d livre(s) de ce titre dans la bibliothèque.", compteur);
+	return 0;
 }
 
 int afficherLivresAuteur(const T_Bibliotheque *ptrB) {
@@ -108,7 +109,7 @@ int rechercherLivreCode(T_Bibliotheque *ptrB, unsigned id) {
 }
 
 int emprunterLivre(T_Bibliotheque *ptrB) {
-	T_Emp emp;
+	char emp[20];
 	unsigned id, position;
 
 	printf("\nQuel est le code du livre ? ");
@@ -119,8 +120,8 @@ int emprunterLivre(T_Bibliotheque *ptrB) {
 	else {
 		getchar();
 		lireChaine("Quel est le nom de l'emprunteur ?", emp, K_MaxEmp);
-		strcpy(ptrB->etagere[position].emprunteur, emp);
-		ptrB->etagere[position].emprunt = 1;
+		strcpy(ptrB->etagere[position].emprunteur.nom, emp);
+		ptrB->etagere[position].emprunteur.emprunt = 1;
 	}
 	return 0;
 }
@@ -131,8 +132,8 @@ int rendreLivre(T_Bibliotheque *ptrB) {
 	printf("\nQuel est le code du livre ? ");
 	scanf("%u", &id);
 	position = rechercherLivreCode(ptrB, id);
-	if (ptrB->etagere[position].emprunt)
-		ptrB->etagere[position].emprunt = 0;
+	if (ptrB->etagere[position].emprunteur.emprunt)
+		ptrB->etagere[position].emprunteur.emprunt = 0;
 	else
 		return 1;
 	return 0;
@@ -197,6 +198,19 @@ void trierAnnees(T_Bibliotheque *ptrB){
 }
 
 
+int afficherLivresDisponibles(const T_Bibliotheque *ptrB) {
+	int compteur = 0;
+	for(int i = 0; i < ptrB->nbLivres; i++){
+		if(!ptrB->etagere[i].emprunteur.emprunt){
+			afficherLivre(&ptrB->etagere[i]);
+			compteur++;
+		}
+	}
+
+	if(compteur == 0)
+		return 1;
+	return 0;
+}
 
 //FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB)
