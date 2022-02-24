@@ -43,9 +43,11 @@ int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[]){
             compteur++;
         }
     }
+
     if (compteur == 0)
         return 1;
     printf("\nIl existe %d livre(s) de ce titre dans la bibliothèque.", compteur);
+	return 0;
 }
 
 int afficherLivresAuteur(const T_Bibliotheque *ptrB) {
@@ -147,51 +149,97 @@ char* lowerString(char chaine[], char copieChaine[]) { // Sert pour trier sans c
     return copieChaine;
 }
 
-//FIXME: Tri plus optimisé ?
 void trierTitre(T_Bibliotheque *ptrB) {
 	T_livre aux;
-	int j;
+	int j, order;
 	char s1[80], s2[80];
 
-	for (unsigned i=0; i<ptrB->nbLivres; i++) {
-		j = i;
-		while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].titre, s1), lowerString(ptrB->etagere[j].titre, s2)) > 0)) { // Tant que c'est supérieur
-			aux = ptrB->etagere[j];
-			ptrB->etagere[j] = ptrB->etagere[j-1];
-			ptrB->etagere[j-1] = aux;
-			j--;
+	printf("\nDans quel ordre souhaitez-vous trier ? \n1. Croissant\n-1. Inverse\n: ");
+	scanf("%d", &order);
+
+	if (order == -1) {
+		for (unsigned i=0; i<ptrB->nbLivres; i++) {
+			j = i;
+			while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].titre, s1), lowerString(ptrB->etagere[j].titre, s2)) < 0)) { // Tant que c'est inférieur
+				aux = ptrB->etagere[j];
+				ptrB->etagere[j] = ptrB->etagere[j-1];
+				ptrB->etagere[j-1] = aux;
+				j--;
+			}
+		}
+	}
+	else {
+		for (unsigned i=0; i<ptrB->nbLivres; i++) {
+			j = i;
+			while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].titre, s1), lowerString(ptrB->etagere[j].titre, s2)) > 0)) { // Tant que c'est supérieur
+				aux = ptrB->etagere[j];
+				ptrB->etagere[j] = ptrB->etagere[j-1];
+				ptrB->etagere[j-1] = aux;
+				j--;
+			}
 		}
 	}
 }
 
 void trierAuteur(T_Bibliotheque *ptrB) {
 	T_livre aux;
-	int j;
+	int j, order;
 	char s1[80], s2[80];
 
-	for (unsigned i=0; i<ptrB->nbLivres; i++) {
-		j = i;
-		while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].auteur, s1), lowerString(ptrB->etagere[j].auteur, s2)) > 0)) { // Tant que c'est supérieur
-			aux = ptrB->etagere[j];
-			ptrB->etagere[j] = ptrB->etagere[j-1];
-			ptrB->etagere[j-1] = aux;
-			j--;
+	printf("\nDans quel ordre souhaitez-vous trier ? \n1. Croissant\n-1. Inverse\n: ");
+	scanf("%d", &order);
+
+	if (order == -1) {
+		for (unsigned i=0; i<ptrB->nbLivres; i++) {
+			j = i;
+			while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].auteur, s1), lowerString(ptrB->etagere[j].auteur, s2)) < 0)) { // Tant que c'est inférieur
+				aux = ptrB->etagere[j];
+				ptrB->etagere[j] = ptrB->etagere[j-1];
+				ptrB->etagere[j-1] = aux;
+				j--;
+			}
+		}
+	}
+	else {
+		for (unsigned i=0; i<ptrB->nbLivres; i++) {
+			j = i;
+			while ((j > 0) && (strcmp(lowerString(ptrB->etagere[j-1].auteur, s1), lowerString(ptrB->etagere[j].auteur, s2)) > 0)) { // Tant que c'est supérieur
+				aux = ptrB->etagere[j];
+				ptrB->etagere[j] = ptrB->etagere[j-1];
+				ptrB->etagere[j-1] = aux;
+				j--;
+			}
 		}
 	}
 }
 
-void trierAnnees(T_Bibliotheque *ptrB){
+void trierAnnee(T_Bibliotheque *ptrB){
 	T_livre aux;
-	int j;
-	char s1[80], s2[80];
+	int j, order;
 
-	for (unsigned i=0; i<ptrB->nbLivres; i++) {
-		j = i;
-		while ((j > 0) && (ptrB->etagere[j-1].annee - ptrB->etagere[j].annee > 0)) { // Tant que c'est supérieur
-			aux = ptrB->etagere[j];
-			ptrB->etagere[j] = ptrB->etagere[j-1];
-			ptrB->etagere[j-1] = aux;
-			j--;
+	printf("\nDans quel ordre souhaitez-vous trier ? \n1. Croissant\n-1. Inverse\n: ");
+	scanf("%d", &order);
+
+	if (order == -1) {
+		for (unsigned i=0; i<ptrB->nbLivres; i++) {
+			j = i;
+			while ((j > 0) && (ptrB->etagere[j-1].annee < ptrB->etagere[j].annee)) { // Tant que c'est inférieur
+				aux = ptrB->etagere[j];
+				ptrB->etagere[j] = ptrB->etagere[j-1];
+				ptrB->etagere[j-1] = aux;
+				j--;
+			}
+		}
+	}
+	else {
+		for (unsigned i=0; i<ptrB->nbLivres; i++) {
+			j = i;
+			while ((j > 0) && (ptrB->etagere[j-1].annee > ptrB->etagere[j].annee)) { // Tant que c'est supérieur
+				aux = ptrB->etagere[j];
+				ptrB->etagere[j] = ptrB->etagere[j-1];
+				ptrB->etagere[j-1] = aux;
+				j--;
+			}
 		}
 	}
 }
