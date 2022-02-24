@@ -180,6 +180,24 @@ void trierAuteur(T_Bibliotheque *ptrB) {
 	}
 }
 
+void trierAnnees(T_Bibliotheque *ptrB){
+	T_livre aux;
+	int j;
+	char s1[80], s2[80];
+
+	for (unsigned i=0; i<ptrB->nbLivres; i++) {
+		j = i;
+		while ((j > 0) && (ptrB->etagere[j-1].annee - ptrB->etagere[j].annee > 0)) { // Tant que c'est supérieur
+			aux = ptrB->etagere[j];
+			ptrB->etagere[j] = ptrB->etagere[j-1];
+			ptrB->etagere[j-1] = aux;
+			j--;
+		}
+	}
+}
+
+
+
 //FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB)
 {

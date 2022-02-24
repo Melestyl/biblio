@@ -117,6 +117,10 @@ int main()
 			break;
 
 		//TODO: Afficher différemment les livres, pour qu'on voit mieux les données.
+		case 10:
+			trierAnnees(&B);
+			printf("\nTri effectué.\n");
+			break;
 
 		default:
 			printf("\nChoix non reconnu ou option non codée pour le moment.\n");
