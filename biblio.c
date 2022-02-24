@@ -35,6 +35,8 @@ int afficherBibliotheque(const T_Bibliotheque *ptrB)
     return 0;
 }
 
+
+
 int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[]){
     int compteur = 0;
     for(int i=0; i < ptrB->nbLivres; i++) {
@@ -148,7 +150,6 @@ char* lowerString(char chaine[], char copieChaine[]) { // Sert pour trier sans c
     return copieChaine;
 }
 
-//FIXME: Tri plus optimisé ?
 void trierTitre(T_Bibliotheque *ptrB) {
 	T_livre aux;
 	int j;
