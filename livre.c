@@ -18,13 +18,14 @@ void afficherLivre(const T_livre *ptrL)
 	printf(" - ");
 	afficherChaine("EDITEUR :", ptrL->editeur);
 	printf(" - ");
-	/* afficherChaine("ANNEE :", ptrL->annee); */
 	printf("ANNEE : %d", ptrL->annee);
 	printf(" - ");
 	printf("CODE : %u", (ptrL->code));
 	if (ptrL->emprunteur.emprunt) {
 		printf(" - ");
 		afficherChaine("EMPRUNTEUR :", ptrL->emprunteur.nom);
+		printf(" - ");
+		printf("DATE D'EMPRUNT : %s %d %s %d", ptrL->emprunteur.lejour, ptrL->emprunteur.ledate, ptrL->emprunteur.lemois, ptrL->emprunteur.lannee);
 	}
 	printf("\n");
 }

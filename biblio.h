@@ -37,4 +37,7 @@ void lectureFichierTXT();
 unsigned int getID();
 void setID(unsigned int id);
 
+//DATE
+void lireDateSysteme(T_Emp *E);
+
 #endif
