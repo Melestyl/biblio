@@ -26,7 +26,7 @@ int emprunterLivre(T_Bibliotheque *ptrB);
 int rendreLivre(T_Bibliotheque *ptrB);
 void trierTitre(T_Bibliotheque *ptrB);
 void trierAuteur(T_Bibliotheque *ptrB);
-void trierAnnees(T_Bibliotheque *ptrB);
+void trierAnnee(T_Bibliotheque *ptrB);
 
 int afficherLivresDisponibles(const T_Bibliotheque *ptrB);
 
@@ -36,5 +36,8 @@ int chargement(T_Bibliotheque *ptrB);
 void lectureFichierTXT();
 unsigned int getID();
 void setID(unsigned int id);
+
+//DATE
+void lireDateSysteme(T_Emp *E);
 
 #endif

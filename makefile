@@ -3,6 +3,7 @@ c=gcc
 
 all : es.o livre.o biblio.o tpBiblio.c 	
 	$(c) $(op)  es.o livre.o biblio.o tpBiblio.c -o exe
+	@echo "Pensez à 'make install' pour installer les librairies si vous ne les possédez pas"
 
 es.o : es.c es.h
 	$(c) $(op) -c es.c	
