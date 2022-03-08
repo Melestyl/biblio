@@ -5,6 +5,12 @@ all : es.o livre.o biblio.o tpBiblio.c
 	$(c) $(op)  es.o livre.o biblio.o tpBiblio.c -o exe
 	@echo "Pensez à 'make install' pour installer les librairies si vous ne les possédez pas"
 
+test : visual.exe
+
+
+visual.exe : visual.c livre.o biblio.o
+	gcc visual.c -o visual.exe  es.o livre.o biblio.o -lncurses
+
 es.o : es.c es.h
 	$(c) $(op) -c es.c	
 livre.o : livre.c livre.h
