@@ -113,7 +113,7 @@ int main(void) {
     wrefresh(right);
     wrefresh(bott);
 
-    inputFunction(input1, "description d'entrée", right, left, functNames, COLS, LINES);
+    inputFunction(input1, "Veuillez entrer quelque chose :", right, left, functNames, COLS, LINES);
     int choix;
     char test[100];
     while (status){
@@ -248,28 +248,36 @@ void inputFunction(char entree[], char entreeDesc[], WINDOW *right, WINDOW *left
     int longueurChaine = 0;
     char chaine[2];
 
-    int maxInputLen = 30;
+    int maxInputLen = 40;
     // On vide la chaine :
     entree[0] = '\0';
 
     move(LINES, COLS);
 
     // Calcul de centrage :
+    int leftPos = (3*COLS/4)/2 -maxInputLen/2;
+    int topPos = (3*LINES/4)/2;
     
 
+    char temp[100];
+    sprintf(temp, "%d", 3*COLS/12);
+    mvwprintw(right, 2, 2, temp);
 
     wrefresh(right);
-    mvwprintw(right, 4, 4, entreeDesc);
+    mvwprintw(right, topPos, leftPos, entreeDesc);
     while (status){
         choix = getch();
-        if ((choix >= 'a' && choix <= 'z') || (choix >= 'A' && choix <= 'Z') || choix == ' ' || choix == ':' || choix == '!'){
-            mvwprintw(right, 10, 4, "test");
+        if (longueurChaine < maxInputLen && ((choix >= 'a' && choix <= 'z') || (choix >= 'A' && choix <= 'Z') || (choix >= 32 && choix <= 64))){ //|| (choix >= 91 && choix <= 96)){
             chaine[0] = choix;
+            /* if (chaine[0] != '['  && chaine[0] != 'A'){
+                strcat(entree, chaine);
+                longueurChaine++;
+            } */
             strcat(entree, chaine);
             longueurChaine++;
         }
         else if (choix == 10)
-            mvwprintw(right, 11, 4, "Ended entry");
+            status = 0;
         else if (choix == 127){
             if (longueurChaine > 0){
                 entree[longueurChaine-1] = '\0';
@@ -281,9 +289,10 @@ void inputFunction(char entree[], char entreeDesc[], WINDOW *right, WINDOW *left
         draw_menu(left,  functNames);
         box(right, ACS_VLINE, ACS_HLINE);
         mvwprintw(right, 0, 2, "RESULTATS");
-        mvwprintw(right, 4, 4, entreeDesc);
-        mvwprintw(right, 5, 4, entree);
+        mvwprintw(right, topPos, leftPos, entreeDesc);
+        mvwprintw(right, topPos+1, leftPos, entree);
         wrefresh(right);
         wrefresh(left);
     }
+    // La boucle est terminée on en sort :)
 };
