@@ -8,7 +8,7 @@ all : es.o livre.o biblio.o tpBiblio.c
 test : visual.exe
 
 
-visual.exe : visual.c livre.o biblio.o
+visual.exe : all visual.c livre.o biblio.o
 	gcc visual.c -o visual.exe  es.o livre.o biblio.o -lncurses
 
 es.o : es.c es.h
