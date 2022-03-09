@@ -1,9 +1,9 @@
 c=gcc
 #op=-Wall -Wextra 
 
-all : es.o livre.o biblio.o tpBiblio.c 	
-	$(c) $(op)  es.o livre.o biblio.o tpBiblio.c -o exe
+all : es.o livre.o biblio.o tpBiblio.c
 	@echo "Pensez à 'make install' pour installer les librairies si vous ne les possédez pas"
+	$(c) $(op)  es.o livre.o biblio.o tpBiblio.c -o exe
 
 test : visual.exe
 

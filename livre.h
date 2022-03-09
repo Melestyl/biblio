@@ -31,6 +31,7 @@ typedef struct
 	T_Mois lemois;
 	int lannee;
 	int emprunt; // Booléen pour savoir si le livre a été emprunté ou non
+	int days_unix; // Nombre de jours écoulés depuis l'EPOCH Unix. Permet de savoir le nombre de jours (avec division du nombre de secondes depuis EPOCH) écoulées depuis l'emprunt
 } T_Emp;
 
 // debut de TP, on utilisera les 2 champs titre et auteur
