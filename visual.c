@@ -343,7 +343,7 @@ int main(void) {
         
         case 19:
             werase(right);
-            affichageUni(right, COLS, LINES, nbPage, "Le emprunte");
+            affichageUni(right, COLS, LINES, nbPage, "Le livre emprunte");
             break;
         
         case 20:
