@@ -23,7 +23,7 @@ install:  #Linux
 	sudo apt-get install libncurses5-dev libncursesw5-dev -y
 
 clean:
-	$(RM) *.o exe 
+	$(RM) *.o *exe 
 
 reset: clean
 	$(RM) id.dat baseLivres 
