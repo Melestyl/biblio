@@ -3,10 +3,10 @@
 #include <signal.h>
 #include <unistd.h>
 
-T_Bibliotheque B; // VARIABLE GLOBALE DE CE FICHIER
+/* T_Bibliotheque B; // VARIABLE GLOBALE DE CE FICHIER */
 
 void terminate() {
-	sauvegarde(&B);
+	setNBLivres(NBLivres);
 }
 
 void sig_handler(int signum){
@@ -53,8 +53,16 @@ int main()
 	atexit(terminate);
 	signal(SIGINT, sig_handler);
 
+	fp = fopen("baseLivres", "ab");
+	if (fp == NULL) {
+		fprintf(stderr, "Erreur d'ouverture du fichier.\n");
+		return 2;
+	}
+	NBLivres = getNBLivres();
+	
+
 	int chx;
-	init(&B);
+	/* init(&B); */
 	char entree[100];
 	unsigned choix;
 
@@ -63,15 +71,18 @@ int main()
 		chx = menu();
 		switch (chx)
 		{
+		case 0:
+			printf("\nFin.\n");
+			break;
 		case 1:
-			if (ajouterLivre(&B))
+			if (ajouterLivre(NBLivres))
 				printf("Echec de l'ajout, la bibliothèque est pleine.\n");
 			else
 				printf("Ajout réussi.\n");
 			break;
 		
 		case 2:
-			if (afficherBibliotheque(&B))
+			if (afficherBibliotheque(NBLivres))
 				printf("La bibliotheque est vide");
 			break;
 		
@@ -79,37 +90,37 @@ int main()
 			printf("Entrez le titre d'un livre à rechercher : ");
 			fgets(entree, 100, stdin);
 			entree[strlen(entree) -1] = '\0';
-			if (rechercherLivreTitre(&B, entree))
+			if (rechercherLivreTitre(entree))
 				printf("Il n'y a pas d'occurrence de ce titre dans la bibliothèque.");
 			break;
 			
 		case 4:
-			if(afficherLivresAuteur(&B))
+			if(afficherLivresAuteur(NBLivres))
 				printf("Aucun livre n'a été trouvé pour cet auteur.\n");
 			break;
 		
 		case 5:
-			if(supprimerLivre(&B))
+			if(supprimerLivre())
 				printf("Le livre n'a pas pu être supprimé.\n");
 			else
 				printf("Le livre a été supprimé avec succès.\n");
 			break;
 		
 		case 6:
-			if(emprunterLivre(&B))
+			if(emprunterLivre())
 				printf("Livre non trouvé, ajout d'emprunteur impossible.\n");
 			else
 				printf("L'emprunteur a été ajouté avec succès.\n");
 			break;
 		
 		case 7:
-			if(rendreLivre(&B))
+			if(rendreLivre())
 				printf("La restitution du livre n'a pas pu s'effectuer.\n");
 			else
 				printf("Le livre a été rendu avec succès.\n");
 			break;
 
-		case 8:
+		/* case 8:
 			trierTitre(&B);
 			printf("\nTri effectué.\n");
 			break;
@@ -119,7 +130,6 @@ int main()
 			printf("\nTri effectué.\n");
 			break;
 
-		//TODO: Afficher différemment les livres, pour qu'on voit mieux les données.
 		case 10:
 			trierAnnee(&B);
 			printf("\nTri effectué.\n");
@@ -143,7 +153,7 @@ int main()
 				afficherLivre(&B.etagere[chx]);
 			else
 				printf("\nIl n'y a pas de livre correspondant à ce code.\n");
-			break;
+			break; */
 
 		default:
 			printf("\nChoix non reconnu ou option non codée pour le moment.\n");

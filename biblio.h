@@ -9,6 +9,9 @@
 
 typedef T_livre T_tabloDeLivres[CAPACITE_BIBLIO];
 
+FILE* fp;
+int NBLivres;
+
 typedef struct
 {
 	T_tabloDeLivres etagere;
@@ -18,14 +21,14 @@ typedef struct
 
 // prototypes
 void init(T_Bibliotheque *ptrB);
-int ajouterLivre(T_Bibliotheque *ptrB);
-int afficherBibliotheque(const T_Bibliotheque *ptrB);
-int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[]);
-int afficherLivresAuteur(const T_Bibliotheque *ptrB);
-int supprimerLivre(T_Bibliotheque *ptrB);
-int rechercherLivreCode(T_Bibliotheque *ptrB, unsigned id);
-int emprunterLivre(T_Bibliotheque *ptrB);
-int rendreLivre(T_Bibliotheque *ptrB);
+int ajouterLivre();
+int afficherBibliotheque();
+int rechercherLivreTitre(const char titre[]);
+int afficherLivresAuteur();
+int supprimerLivre();
+int rechercherLivreCode(unsigned id);
+int emprunterLivre();
+int rendreLivre();
 void trierTitre(T_Bibliotheque *ptrB);
 void trierAuteur(T_Bibliotheque *ptrB);
 void trierAnnee(T_Bibliotheque *ptrB);
@@ -43,5 +46,15 @@ void setID(unsigned int id);
 
 //DATE
 void lireDateSysteme(T_Emp *E);
+
+//FICHIERS ++++
+void allerDebut();
+void avancer();
+void reculer();
+void allerA(unsigned pos);
+int getNBLivres();
+void setNBLivres();
+void ecrireLivre(T_livre livre);
+T_livre lireLivre();
 
 #endif

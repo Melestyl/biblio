@@ -6,43 +6,51 @@ void init(T_Bibliotheque *ptrB)
 		ptrB->nbLivres = 0;
 }
 
-int ajouterLivre(T_Bibliotheque *ptrB)
+int ajouterLivre()
 {
 	unsigned int id = getID();
 
-	if (ptrB->nbLivres == CAPACITE_BIBLIO)
+	if (NBLivres == CAPACITE_BIBLIO)
 		return 1;
 	T_livre livre;
 	saisirLivre(&livre);
 	livre.code = id;
 	livre.emprunteur.emprunt = 0;
-	ptrB->etagere[ptrB->nbLivres] = livre;
-	ptrB->nbLivres++;
+	ecrireLivre(livre);
+	NBLivres++;
 	printf("\nLe livre possède le code %u.\n", id);
 	setID(id + 1);
 	return 0;
 }
 
-int afficherBibliotheque(const T_Bibliotheque *ptrB)
+int afficherBibliotheque()
 {
+	T_livre livre;
+
 	printf("\nAffichage de la bibliothèque :\n");
-	if (ptrB->nbLivres == 0)
+	if (NBLivres == 0)
 		return 1;
-	for (int i = 0; i < ptrB->nbLivres; i++)
+	allerDebut();
+	for (int i = 0; i < NBLivres; i++)
 	{
-		afficherLivre(&ptrB->etagere[i]);
+		livre = lireLivre();
+		afficherLivre(&livre);
 	}
 	return 0;
 }
 
-int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[])
+int rechercherLivreTitre(const char titre[])
 {
 	int compteur = 0;
-	for (int i = 0; i < ptrB->nbLivres; i++)
+	T_livre livre;
+
+	allerDebut();
+	for (int i = 0; i < NBLivres; i++)
 	{
-		if (!strcmp(ptrB->etagere[i].titre, titre))
+		livre = lireLivre();
+		if (!strcmp(livre.titre, titre))
 		{
-			afficherLivre(&ptrB->etagere[i]);
+			afficherLivre(&livre);
 			compteur++;
 		}
 	}
@@ -53,20 +61,24 @@ int rechercherLivreTitre(const T_Bibliotheque *ptrB, const char titre[])
 	return 0;
 }
 
-int afficherLivresAuteur(const T_Bibliotheque *ptrB)
+int afficherLivresAuteur()
 {
 	char name[50];
 	int compteur = 0;
+	T_livre livre;
 
 	printf("\nEntrez le nom de l'auteur recherché : ");
 	fgets(name, 50, stdin);
 	name[strlen(name) - 1] = '\0'; // Supprime le retour à la ligne
-	for (int i = 0; i < ptrB->nbLivres; i++)
+
+	allerDebut();
+	for (int i = 0; i < NBLivres; i++)
 	{
-		if (!strcmp(ptrB->etagere[i].auteur, name))
+		livre = lireLivre();
+		if (!strcmp(livre.auteur, name))
 		{
 			compteur++;
-			afficherLivre(&ptrB->etagere[i]);
+			afficherLivre(&livre);
 		}
 	}
 	if (!compteur)
@@ -74,21 +86,25 @@ int afficherLivresAuteur(const T_Bibliotheque *ptrB)
 	return 0;
 }
 
-int supprimerLivre(T_Bibliotheque *ptrB)
+int supprimerLivre()
 {
 	unsigned int code, position;
 	char choice;
+	T_livre livre;
 
 	printf("\nEntrez le code du livre à supprimer : ");
 	scanf("%u", &code);
-	position = rechercherLivreCode(ptrB, code);
+	position = rechercherLivreCode(code);
 	if (position == 0)
 		return 1; // Non trouvé, position impossible
 	else
 	{
+		allerA(position);
+		livre = lireLivre();
+		allerA(position);
 		printf("Voulez-vous supprimer le livre suivant ?\n");
-		afficherLivre(&ptrB->etagere[position]);
-		printf("O/n : ");
+		afficherLivre(&livre);
+		printf("o/n : ");
 		getchar();
 		scanf("%c", &choice);
 		switch (choice)
@@ -97,10 +113,14 @@ int supprimerLivre(T_Bibliotheque *ptrB)
 		case 'O':
 		case 'y':
 		case 'Y':
-			ptrB->nbLivres--;
-			for (unsigned i = position; i < ptrB->nbLivres; i++)
+			NBLivres--;
+			for (unsigned i = position; i < NBLivres; i++)
 			{
-				ptrB->etagere[i] = ptrB->etagere[i + 1];
+				avancer();
+				livre = lireLivre();
+				reculer();
+				reculer();
+				ecrireLivre(livre);
 			}
 			break;
 
@@ -112,48 +132,62 @@ int supprimerLivre(T_Bibliotheque *ptrB)
 	return 0;
 }
 
-int rechercherLivreCode(T_Bibliotheque *ptrB, unsigned id)
+int rechercherLivreCode(unsigned id)
 {
-	for (unsigned i = 0; i < ptrB->nbLivres; i++)
+	T_livre livre;
+
+	allerDebut();
+	for (unsigned i = 0; i < NBLivres; i++)
 	{
-		if (ptrB->etagere[i].code == id)
+		livre = lireLivre();
+		if (livre.code == id)
 			return i;
 	}
 	return 0; // N'existe pas
 }
 
-int emprunterLivre(T_Bibliotheque *ptrB)
+int emprunterLivre()
 {
 	char emp[20];
 	unsigned id, position;
+	T_livre livre;
 
 	printf("\nQuel est le code du livre ? ");
 	scanf("%u", &id);
-	position = rechercherLivreCode(ptrB, id);
+	position = rechercherLivreCode(id);
 	if (position == 0)
 		return 1;
 	else
 	{
+		allerA(position);
+		livre = lireLivre();
 		getchar();
 		lireChaine("Quel est le nom de l'emprunteur ?", emp, K_MaxEmp);
-		strcpy(ptrB->etagere[position].emprunteur.nom, emp);
-		ptrB->etagere[position].emprunteur.emprunt = 1;
-		lireDateSysteme(&ptrB->etagere[position].emprunteur);
+		strcpy(livre.emprunteur.nom, emp);
+		livre.emprunteur.emprunt = 1;
+		lireDateSysteme(&livre.emprunteur);
+		reculer();
+		ecrireLivre(livre);
 	}
 	return 0;
 }
 
-int rendreLivre(T_Bibliotheque *ptrB)
+int rendreLivre()
 {
 	unsigned id, position;
+	T_livre livre;
 
 	printf("\nQuel est le code du livre ? ");
 	scanf("%u", &id);
-	position = rechercherLivreCode(ptrB, id);
-	if (ptrB->etagere[position].emprunteur.emprunt)
-		ptrB->etagere[position].emprunteur.emprunt = 0;
+	position = rechercherLivreCode(id);
+	allerA(position);
+	livre = lireLivre();
+	if (livre.emprunteur.emprunt)
+		livre.emprunteur.emprunt = 0;
 	else
 		return 1;
+	reculer();
+	ecrireLivre(livre);
 	return 0;
 }
 
@@ -167,7 +201,7 @@ char *lowerString(char chaine[], char copieChaine[])
 	return copieChaine;
 }
 
-void trierTitre(T_Bibliotheque *ptrB)
+/* void trierTitre(T_Bibliotheque *ptrB)
 {
 	T_livre aux;
 	int j, order;
@@ -317,7 +351,7 @@ int afficherLivresEnRetard(const T_Bibliotheque *ptrB) {
 	if (compteur == 0)
 		return 1;
 	return 0;
-}
+} */
 
 // FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB)
@@ -434,4 +468,52 @@ void lireDateSysteme(T_Emp *E)
 	strcpy(E->lejour, days[local->tm_wday]);
 	E->ledate = local->tm_mday;
 	E->days_unix = now / (86400);
+}
+
+
+
+// FICHIERS ++++
+void allerDebut() {
+	fseek(fp, sizeof(int), SEEK_SET);
+}
+
+void avancer() {
+	fseek(fp, sizeof(T_livre), SEEK_CUR);
+}
+
+void reculer() {
+	fseek(fp, -1 * sizeof(T_livre), SEEK_CUR);
+}
+
+void allerA(unsigned pos) {
+	allerDebut();
+	fseek(fp, pos * sizeof(T_livre), SEEK_SET);
+}
+
+int getNBLivres() {
+	int NBLivres = 0;
+
+	rewind(fp);
+	if(fread(&NBLivres, sizeof(int), 1, fp) == 0)
+		fwrite(&NBLivres, sizeof(int), 1, fp);
+
+	allerDebut();
+	return NBLivres;
+}
+
+void setNBLivres() {
+	rewind(fp);
+	fwrite(&NBLivres, sizeof(int), 1, fp);
+
+	allerDebut();
+}
+
+void ecrireLivre(T_livre livre) {
+	fwrite(&livre, sizeof(T_livre), 1, fp);
+}
+
+T_livre lireLivre() {
+	T_livre livre;
+	fread(&livre, sizeof(T_livre), 1, fp);
+	return livre;
 }
