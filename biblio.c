@@ -1,7 +1,4 @@
 #include "biblio.h"
-#include <time.h>
-#include <ctype.h>
-
 
 void init(T_Bibliotheque *ptrB)
 {
@@ -408,15 +405,13 @@ void setID(unsigned int id)
 void lireDateSysteme(T_Emp *E)
 {
 	char*	   days[]  = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
-	char*	   month[] = {"janvier", "février",	  "mars",	 "avril",	 "mai",		"juin", "juillet", "septembre", "octobre", "novembre", "décembre"};
+	char*	   month[] = {"janvier", "février", "mars", "avril", "mai",	"juin", "juillet", "septembre", "octobre", "novembre", "décembre"};
 
-	time_t	   now;
-	struct tm* local = localtime(&now);
+	time_t now = time( NULL );
+	struct tm * local = localtime(&now);
 	
-	time(&now);
-
-	E->lannee = local->tm_year;
-	strcpy(E->lejour, month[local->tm_mon]);
-	strcpy(E->lejour, days[local->tm_mday]);
-	E->ledate = local->tm_wday;
+	E->lannee = local->tm_year + 1900;
+	strcpy(E->lemois, month[local->tm_mon]);
+	strcpy(E->lejour, days[local->tm_wday]);
+	E->ledate = local->tm_mday;
 }
