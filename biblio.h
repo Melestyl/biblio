@@ -31,6 +31,8 @@ void trierAuteur(T_Bibliotheque *ptrB);
 void trierAnnee(T_Bibliotheque *ptrB);
 
 int afficherLivresDisponibles(const T_Bibliotheque *ptrB);
+int afficherLivresEnRetard(const T_Bibliotheque *ptrB);
+
 
 //FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB);

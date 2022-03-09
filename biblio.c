@@ -300,6 +300,25 @@ int afficherLivresDisponibles(const T_Bibliotheque *ptrB)
 	return 0;
 }
 
+int afficherLivresEnRetard(const T_Bibliotheque *ptrB) {
+	int compteur = 0;
+	time_t now = time( NULL );
+	int days = now / (86400);
+
+	for (int i = 0; (i < ptrB->nbLivres) && (ptrB->etagere[i].emprunteur.emprunt); i++)
+	{
+		if (days >= ptrB->etagere[i].emprunteur.days_unix + 7)
+		{
+			afficherLivre(&ptrB->etagere[i]);
+			compteur++;
+		}
+	}
+
+	if (compteur == 0)
+		return 1;
+	return 0;
+}
+
 // FICHIERS
 void sauvegarde(T_Bibliotheque *ptrB)
 {
@@ -414,4 +433,5 @@ void lireDateSysteme(T_Emp *E)
 	strcpy(E->lemois, month[local->tm_mon]);
 	strcpy(E->lejour, days[local->tm_wday]);
 	E->ledate = local->tm_mday;
+	E->days_unix = now / (86400);
 }
